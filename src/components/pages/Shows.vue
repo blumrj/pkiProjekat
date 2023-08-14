@@ -28,8 +28,8 @@ export default{
     name: "DiscoverShowsPage",
     data(){
         return {
-            chosenGenre: "all",
-            currentPage: 1,
+            currentPage: this.$route.params.page,
+            chosenGenre: this.$route.params.genre,
         }
     },
     computed: {
@@ -46,9 +46,9 @@ export default{
             return this.currentPage == 1 ? true : false
         }
     },
-    mounted() {
+    created() {
+        window.scrollTo(0,0)
         this.$store.dispatch("callApiAction", {endpoint: "genre/tv/list", mutation: "changeSeriesStateMutation", state: "seriesGenres"});
-
         this.$store.dispatch("callApiAction", {endpoint: "discover/tv?include_adult=false&page=1&with_genres=" + this.chosenGenre, mutation: "changeSeriesStateMutation", state: "discoverSeries"});
 
     },
@@ -56,20 +56,19 @@ export default{
         chosenGenre: function(){
             this.currentPage = 1
             this.$store.dispatch("callApiAction", {endpoint: "discover/tv?include_adult=false&with_genres=" + this.chosenGenre, mutation: "changeSeriesStateMutation", state: "discoverSeries"});
-        },
-        currentSortingValue: function(){
-            this.currentPage = 1
-            this.$store.dispatch("callApiAction", {endpoint: "discover/tv?include_adult=false&with_genres=" + this.chosenGenre, mutation: "changeSeriesStateMutation", state: "discoverSeries"});
+            this.$router.push({name: "shows", params: {genre: this.chosenGenre, page: this.currentPage}})
         }
     },
     methods: {
         nextPage(){
             this.currentPage++
             this.$store.dispatch("callApiAction", {endpoint: "discover/tv?include_adult=false&page=" + this.currentPage + "&with_genres=" + this.chosenGenre, mutation: "changeSeriesStateMutation", state: "discoverSeries"}).then(window.scrollTo(0,0));
+            this.$router.push({name: "shows", params: {genre: this.chosenGenre, page: this.currentPage}})
         },
         previousPage(){
             this.currentPage--
             this.$store.dispatch("callApiAction", {endpoint: "discover/tv?include_adult=false&page=" + this.currentPage + "&with_genres=" + this.chosenGenre, mutation: "changeSeriesStateMutation", state: "discoverSeries"}).then(window.scrollTo(0,0));
+            this.$router.push({name: "shows", params: {genre: this.chosenGenre, page: this.currentPage}})
         },
         getProductType(element){
             if(element.release_date){

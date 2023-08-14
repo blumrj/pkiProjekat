@@ -28,8 +28,8 @@ export default{
     name: "DiscoverMoviesPage",
     data(){
         return {
-            chosenGenre: "all",
-            currentPage: localStorage.getItem("moviePageNumber") ? localStorage.getItem("moviePageNumber") : 1,
+            currentPage: this.$route.params.page,
+            chosenGenre: this.$route.params.genre,
         }
     },
     computed: {
@@ -44,31 +44,32 @@ export default{
         },
         isDisabled(){
             return this.currentPage == 1 ? true : false
-        }
+        },
     },
     created() {
         window.scrollTo(0,0)
         this.$store.dispatch("callApiAction", {endpoint: "genre/movie/list", mutation: "changeMoviesStateMutation", state: "movieGenres"});
         this.$store.dispatch("callApiAction", {endpoint: "discover/movie?include_adult=false&page=" + this.currentPage + "&with_genres=" + this.chosenGenre, mutation: "changeMoviesStateMutation", state: "discoverMovies"});
-        console.log(localStorage.getItem("moviePageNumber"))
     },
     watch: {
         chosenGenre: function(){
+            console.log(this.chosenGenre)
             this.currentPage = 1
             this.$store.dispatch("callApiAction", {endpoint: "discover/movie?include_adult=false&with_genres=" + this.chosenGenre, mutation: "changeMoviesStateMutation", state: "discoverMovies"});
+            // var genreName = this.movieGenres.find(({id}) => id==this.chosenGenre).name
+            this.$router.push({name: "movies", params: {genre: this.chosenGenre, page: this.currentPage}})
         }
     },
     methods: {
         nextPage(){
             this.currentPage++
             this.$store.dispatch("callApiAction", {endpoint: "discover/movie?include_adult=false&page=" + this.currentPage + "&with_genres=" + this.chosenGenre, mutation: "changeMoviesStateMutation", state: "discoverMovies"}).then(window.scrollTo(0,0));
-            localStorage.setItem("moviePageNumber", this.currentPage)
+            this.$router.push({name: "movies", params: {genre: this.chosenGenre, page: this.currentPage}})
         },
         previousPage(){
             this.currentPage--
             this.$store.dispatch("callApiAction", {endpoint: "discover/movie?include_adult=false&page=" + this.currentPage + "&with_genres=" + this.chosenGenre, mutation: "changeMoviesStateMutation", state: "discoverMovies"}).then(window.scrollTo(0,0));
-            localStorage.setItem("moviePageNumber", this.currentPage)
-
+            this.$router.push({name: "movies", params: {genre: this.chosenGenre, page: this.currentPage}})
         },
         getProductType(element){
             if(element.release_date){

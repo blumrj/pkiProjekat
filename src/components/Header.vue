@@ -30,8 +30,8 @@ export default{
           text: "Discover",
           path: "/discover",
           children: [
-            {text: "Movies", path: "/movies"},
-            {text: "Tv Shows", path: "/shows"},
+            {text: "Movies", path: "/movies/all/1"},
+            {text: "Tv Shows", path: "/shows/all/1"},
           ],
           role: ["unauthorized", "user", "admin"]
         },

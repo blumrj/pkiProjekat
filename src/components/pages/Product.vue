@@ -1,9 +1,5 @@
 <template>
     <div class="" id="backdrop-image" :style="`--bgImg: url(${backgroundImg})`">
-        <!-- backdrop img -->
-        <!-- <image-component id="backdrop-image" :imagePath="this.localProduct.backdrop_path" :imageAlt="localProduct.title || localProduct.name" class="img-fluid w-100"></image-component> -->
-        <div ></div>
-
         <!-- product content -->
         <div class="container pt-10">
             <div class="row justify-content-center justify-content-lg-between align-items-center">
@@ -14,14 +10,14 @@
                     <!-- product content: title -->
                     <product-content :title="this.localProduct.title || this.localProduct.name">
                         <ul class="row justify-content-start">
-                            <li class="w-auto me-3">{{genres}}</li>
+                            <li v-if="localProduct.genres" class="w-auto me-3">{{genres}}</li>
                             <li class="w-auto me-3">{{duration || "Seasons: " + this.localProduct.number_of_seasons}}</li>
-                            <li class="w-auto me-3"><a :href="trailer" target="_blank">Watch trailer </a></li>
+                            <li v-if="localProduct.videos" class="w-auto me-3"><a :href="trailer" target="_blank">Watch trailer </a></li>
                         </ul>
                     </product-content>
                     <!-- product content: cast -->
                     <product-content title="Cast" titleTag="h4" class="mt-3">
-                        <p>{{cast}}</p>
+                        <p v-if="this.localProduct.credits">{{cast}}</p>
                     </product-content>
                     <!-- product content: overview -->
                     <product-content title="Overview" titleTag="h4" class="mt-3">
@@ -29,15 +25,13 @@
                     </product-content>
                     <!-- product content: actions -->
                     <product-content title="" titleTag="h4" class="mt-3">
-                        <button class="btn w-auto me-3" :style="{backgroundColor: this.btnColor}" @click="addToWatchList()">Add to Watch Later</button>
-                        <button class="btn w-auto" :style="{backgroundColor: this.btnColor}">Add to List</button>
+                        <button class="btn w-auto me-3" :style="{backgroundColor: this.btnColor, color: '#fff'}" @click="addToWatchList()">Add to Watch Later</button>
+                        <button class="btn w-auto" :style="{backgroundColor: this.btnColor, color: '#fff'}">Add to List</button>
                     </product-content>
                 </div>
+            </div>
         </div>
-        
-        </div>
-    </div>
-    
+    </div>  
 </template>
 
 <script>
@@ -78,34 +72,21 @@ import { mapGetters } from 'vuex';
                     return undefined
                 }
             },
-            genres(){
-                var genres = []
-                this.localProduct.genres.forEach(genre => {
-                    genres.push(genre.name)
-                });
-                return genres.join(", ")
-            },
             duration(){
                 var h = Math.floor(this.localProduct.runtime/60)
                 var min = this.localProduct.runtime%60
                 
                 return isNaN(h) || isNaN(min) ? undefined : h + "h " + min + "min"
             },
-            cast(){
-                var cast = []
-                this.localProduct.credits.cast.forEach(member => {
-                    cast.push(member.name)
-                })
-                return cast.splice(0,10).join(", ")
+            genres(){
+                return this.localProduct.genres.map((genre) => genre.name).join(", ")
             },
             trailer(){
-                var key = ""
-                this.localProduct.videos.results.forEach(video => {
-                    if(video.type == "Trailer"){
-                        key = video.key;
-                    }
-                })
-                return "https://www.youtube.com/watch?v=" + key
+                var trailerKey = this.localProduct.videos.results.find(({type}) => type == "Trailer").key
+                return "https://www.youtube.com/watch?v=" + trailerKey
+            },
+            cast(){
+                return this.localProduct.credits.cast.map((member => member.name)).splice(0,10).join(", ")
             },
             seriesDuration(){
                 var firstAirYear = this.localProduct.first_air_date.split("-")[0]
@@ -129,13 +110,11 @@ import { mapGetters } from 'vuex';
         },
         mounted(){
             if(this.productType == "movie"){
-                this.btnColor = "#3D348B"
+                this.btnColor = "var(--movie-background-color)"
             }
             if(this.productType == "series"){
-                this.btnColor = "#3A5683"
+                this.btnColor = "var(--tv-shows-background-color)"
             }
-
-
         },
         watch: {
             product: function(){

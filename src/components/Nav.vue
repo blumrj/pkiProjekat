@@ -58,7 +58,8 @@ export default{
 
 .navbar .getstarted,
 .navbar .getstarted:focus {
-  background: #d9232d;
+  /* background: #d9232d; */
+  background: var(--button-background-color);
   padding: 8px 25px;
   border-radius: 4px;
   color: #fff;

@@ -9,7 +9,7 @@
       
             <div class="">
                 <!-- toggle button -->
-                <toggle-button v-if="toggleButton" :toggleButtonDefaultValue="toggleButtonDefaultValue" :color="{checked: '#3A5683', unchecked: '#3D348B'}" :labels="{checked: 'TV shows', unchecked: 'Movies'}" :value="toggleButtonDefaultValue" :width="90" :height="30" @change="toggleElements"/>
+                <toggle-button v-if="toggleButton" :toggleButtonDefaultValue="toggleButtonDefaultValue" :color="{checked: 'var(--tv-shows-background-color)', unchecked: 'var(--movie-background-color)'}" :labels="{checked: 'TV shows', unchecked: 'Movies'}" :value="toggleButtonDefaultValue" :width="90" :height="30" @change="toggleElements"/>
                 <!-- swiper container -->
                 <swiper-container v-if="arrayToShow.length" :navigation="navigation" :slides-per-view="slidesPerView" :slides-per-group-auto="slidesPerGroup" :loop="loop" :movies="movies" :shows="shows" :space-between="30" :autoplay-delay="autoplayDelay" :autoplay-disable-on-interaction="autoplayInteraction" class="px-4 py-5 my-4 " :style="{backgroundColor: this.containerColor}">
                     <!-- swiper slides -->
@@ -106,11 +106,11 @@ export default{
             var buttonState = value.value; //is button on or off (true or false)
             if(!buttonState){
                 this.localElements = this.movies
-                this.containerColor = "#3D348B"
+                this.containerColor = "var(--movie-background-color)"
             }
             else{
                 this.localElements = this.shows
-                this.containerColor = "#3A5683"
+                this.containerColor = "var(--tv-shows-background-color)"
             }
         },
         getProductType(element){
@@ -161,7 +161,7 @@ export default{
     },
     mounted(){
         if(this.toggleButton){
-            this.containerColor = "#3D348B"
+            this.containerColor = "var(--movie-background-color)"
         }
 
         this.startLoading()
@@ -171,4 +171,7 @@ export default{
 </script>
 
 <style>
+ :root{
+  --swiper-navigation-color: #d9232d;
+}
 </style>

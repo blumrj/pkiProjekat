@@ -26,6 +26,11 @@ export default {
 };
 </script>
 <style>
+:root{
+  --movie-background-color: rgb(108, 125, 71);
+  --tv-shows-background-color: #454ADE;
+  --button-background-color: linear-gradient(90deg, var(--movie-background-color) 0%, var(--tv-shows-background-color) 100%);
+}
 
 #app {
   font-family: "Open Sans", sans-serif;
@@ -41,9 +46,11 @@ export default {
 
 #app .btn-red,
 #app .btn-red:focus {
-  background: #d9232d;
+  /* background: #d9232d; */
+  background: var(--button-background-color);
   border-radius: 4px;
   color: #fff;
 }
+
 
 </style>

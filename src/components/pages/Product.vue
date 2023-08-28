@@ -131,6 +131,8 @@ import { mapGetters } from 'vuex';
                 }
                 else{
                     console.log(this.productId)
+
+                    this.$store.dispatch("callApiAction", {endpoint: "movie/" + this.productId, mutation: "addToWatchList", state: "watchlist"});
                 }
             }
         }

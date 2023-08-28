@@ -9,7 +9,7 @@
             <TextField v-model="signUpObj.password" label="Password" id="tbRegPassword" type="password" :rules="{password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, required: true}"  name="Password"/>
             <!-- Sign up button -->
             <input type="button" class="btn btn-red mt-3" value="Register" id="Register" :disabled="invalid" @click="handleSubmit(signUpUser)"/>
-            <p v-if="error" class="text-danger">{{error}}</p>
+            <p v-if="error" class="text-danger mt-4">{{error}}</p>
         </form>
     </ValidationObserver>
 </template>
@@ -39,12 +39,12 @@ export default{
     },
     methods: {
         signUpUser(){
-            var user = this.users.find(obj => obj.email == this.signUpObj.email || obj.username == this.signUpObj.user);
-            console.log(user)
-
+            var user = this.users.find(obj => obj.email == this.signUpObj.email || obj.username == this.signUpObj.username);
+            
             if(user) {
-                    this.error = "This user already exists."
-                    return
+                console.log(user)
+                this.error = "This user already exists."
+                return
             }
             else{
                 var newUser = {
@@ -54,18 +54,12 @@ export default{
                     role : this.signUpObj.role
                 }
 
-                // this.users.push(newUser)
-
-                this.$store.commit("addUser", newUser)
+                localStorage.setItem("user", JSON.stringify(newUser));
+                
+                this.$store.commit("changeUser", newUser)
+                location.reload()
+                this.$router.go(-1)
             }
-                
-
-
-                
-                // localStorage.setItem("user", JSON.stringify(localStorageItem));
-                
-                // location.reload()
-                // this.$router.go(-1)
                 
         }
     },

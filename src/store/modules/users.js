@@ -23,11 +23,6 @@ export default {
             state.user.username = newUser.username,
             state.user.role = newUser.role
         },
-        // addUser(state, newUser){
-        //     if(newUser){
-                
-        //     }
-        // }
     },
     getters: {
         username(state) {

@@ -12,6 +12,7 @@ export default {
         token: "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ODAxZGUxNTBmYTM2NmE3YWYwMzYyYTJiMDhjMjk5NiIsInN1YiI6IjY0YjQwNTM0Nzg1NzBlMDBhZDRiZTVkYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mn7cdq3gAVMWOl6SqJqD7e8YN_qYf2bBADsl336uOxc",
         product: [],
         hero: [],
+        watchlist: []
     },
     mutations: {
         changeSeriesStateMutation(state, payload){
@@ -23,6 +24,10 @@ export default {
         changeProductStateMutation(state, payload){
             state[payload.stateName] = payload.data
         },
+        addToWatchList(state, payload){
+            state[payload.stateName].push(payload.data)
+            console.log(state[payload.stateName])
+        }
     },
     actions: {
         callApiAction({commit,state}, dataArray){

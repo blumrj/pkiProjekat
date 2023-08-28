@@ -1,11 +1,8 @@
 import users from "../sources/users.json"
-console.log(users)
-// console.log(registeredUsers)
 export default {
     state: {
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {username: "guest", role: "unauthorized"},
       users : users,
-    //   registeredUsers: commit("addUser")
     },
     mutations: {
         changeUsername(state, newUsername) {

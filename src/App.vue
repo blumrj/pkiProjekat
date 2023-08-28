@@ -46,8 +46,13 @@ export default {
 
 #app .btn-red,
 #app .btn-red:focus {
-  /* background: #d9232d; */
   background: var(--button-background-color);
+  border-radius: 4px;
+  color: #fff;
+}
+
+#app .btn-red:hover {
+  background: var(--movie-background-color);
   border-radius: 4px;
   color: #fff;
 }

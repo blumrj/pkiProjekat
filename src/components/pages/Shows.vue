@@ -1,7 +1,7 @@
 <template>
     <div class="container pt-5">
-        <div class="row">
-            <h1>Tv Shows</h1>
+        <div class="row pt-5">
+            <h1 class="mt-3">Tv Shows</h1>
         </div>
         <div class="row justify-content-between">
                 <DropDown v-if="seriesGenres" v-model="chosenGenre" :withDefaultOption="true"  id="ddlMovieGenres" :items="seriesGenres" valueProperty="id" textProperty="name" label="Genre" class="w-auto"/>

@@ -12,7 +12,7 @@
                         <ul class="row justify-content-start">
                             <li v-if="localProduct.genres" class="w-auto me-3">{{genres}}</li>
                             <li class="w-auto me-3">{{duration || "Seasons: " + this.localProduct.number_of_seasons}}</li>
-                            <li v-if="localProduct.videos" class="w-auto me-3"><a :href="trailer" target="_blank">Watch trailer </a></li>
+                            <li v-if="localProduct.videos && productType == 'movie'" class="w-auto me-3"><a :href="trailer" target="_blank">Watch trailer </a></li>
                         </ul>
                     </product-content>
                     <!-- product content: cast -->
@@ -26,7 +26,6 @@
                     <!-- product content: actions -->
                     <product-content title="" titleTag="h4" class="mt-3">
                         <button class="btn w-auto me-3" :style="{backgroundColor: this.btnColor, color: '#fff'}" @click="addToWatchList()">Add to Watch Later</button>
-                        <button class="btn w-auto" :style="{backgroundColor: this.btnColor, color: '#fff'}">Add to List</button>
                     </product-content>
                 </div>
             </div>
@@ -82,8 +81,11 @@ import { mapGetters } from 'vuex';
                 return this.localProduct.genres.map((genre) => genre.name).join(", ")
             },
             trailer(){
+                if(!this.localProduct.videos.results.length){
+                    return
+                }
                 var trailerKey = this.localProduct.videos.results.find(({type}) => type == "Trailer").key
-                return "https://www.youtube.com/watch?v=" + trailerKey
+                    return "https://www.youtube.com/watch?v=" + trailerKey
             },
             cast(){
                 return this.localProduct.credits.cast.map((member => member.name)).splice(0,10).join(", ")
@@ -130,9 +132,12 @@ import { mapGetters } from 'vuex';
                     this.$router.push("/register")
                 }
                 else{
-                    console.log(this.productId)
-
-                    this.$store.dispatch("callApiAction", {endpoint: "movie/" + this.productId, mutation: "addToWatchList", state: "watchlist"});
+                    if(this.productType == "movie"){
+                        this.$store.dispatch("callApiAction", {endpoint: "movie/" + this.productId, mutation: "addToWatchList", state: "watchlist"});
+                    }
+                    if(this.productType == "series"){
+                        this.$store.dispatch("callApiAction", {endpoint: "tv/" + this.productId, mutation: "addToWatchList", state: "watchlist"});
+                    }
                 }
             }
         }

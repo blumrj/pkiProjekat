@@ -1,7 +1,7 @@
 <template>
     <div class="container pt-5">
-        <div class="row">
-            <h1>Movies</h1>
+        <div class="row pt-5">
+            <h1 class="mt-3">Movies</h1>
         </div>
         <div class="row justify-content-between">
                 <DropDown v-if="movieGenres" v-model="chosenGenre" :withDefaultOption="true"  id="ddlMovieGenres" :items="movieGenres" valueProperty="id" textProperty="name" label="Genre" class="w-auto"/>
@@ -55,7 +55,6 @@ export default{
         chosenGenre: function(){
             this.currentPage = 1
             this.$store.dispatch("callApiAction", {endpoint: "discover/movie?include_adult=false&with_genres=" + this.chosenGenre, mutation: "changeMoviesStateMutation", state: "discoverMovies"});
-            // var genreName = this.movieGenres.find(({id}) => id==this.chosenGenre).name
             this.$router.push({name: "movies", params: {genre: this.chosenGenre, page: this.currentPage}})
         }
     },

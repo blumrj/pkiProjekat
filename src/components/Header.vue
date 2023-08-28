@@ -1,7 +1,7 @@
 <template>
 <b-navbar id="header" toggleable="lg" fixed="top">
   <div class="container d-flex justify-content-between">
-      <b-navbar-brand to="/" tag="h1" class="logo me-auto w-auto">Sailor</b-navbar-brand>
+      <b-navbar-brand to="/" tag="h1" class="logo me-auto w-auto">StreamVault</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse" class=""></b-navbar-toggle>
       <Nav :navItems="navigation" class="w-auto"/>
   </div>        
@@ -83,7 +83,6 @@ export default{
   padding: 0;
   line-height: 1;
   font-weight: 700;
-  text-transform: uppercase;
 }
 
 #header .logo a {

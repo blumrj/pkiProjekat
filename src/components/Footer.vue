@@ -3,7 +3,7 @@
     <footer id="footer" class="">
       <div class="container">
         <div class="copyright">
-          &copy; Copyright <strong><span>Sailor</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>StreamVault</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
           Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
@@ -61,7 +61,7 @@ export default{
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #d9232d;
+  background: var(--button-background-color);
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -74,7 +74,7 @@ export default{
 }
 
 .back-to-top:hover {
-  background: #e1444d;
+  background: var(--movie-background-color);
   color: #fff;
 }
 

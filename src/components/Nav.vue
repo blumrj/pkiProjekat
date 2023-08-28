@@ -53,7 +53,7 @@ export default{
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover>a {
-  color: #d9232d;
+  color: var(--movie-background-color);
 }
 
 .navbar .getstarted,
@@ -70,7 +70,7 @@ export default{
 .btn-red:hover,
 .btn-red:focus:hover {
   color: #fff;
-  background: #e1444d;
+  background: var(--movie-background-color);
 }
 
 .navbar .dropdown ul {
@@ -92,7 +92,7 @@ export default{
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-  color: #d9232d;
+  color: var(--movie-background-color);
 }
 
 .navbar .dropdown:hover a >ul {

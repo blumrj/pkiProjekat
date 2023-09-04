@@ -26,9 +26,9 @@ export default{
     data(){
         return {
             signUpObj: {
-                email: "marija@gmail.com",
-                username: "marija",
-                password: "marija1234",
+                email: "",
+                username: "",
+                password: "",
                 role: "user"
             },
             error: undefined

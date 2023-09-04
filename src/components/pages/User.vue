@@ -3,7 +3,6 @@
         <div class="pt-5 row justify-content-between align-items-center">
             <h1 class="w-auto"><b-icon icon="person-fill"></b-icon> {{$route.params.username}}</h1>
             <div class="col-auto row column-gap-2">
-                <!-- <button class="btn btn-red w-auto">Edit watchlist</button> -->
                 <button @click="logout" class="btn btn-red w-auto">Logout</button>
             </div>
         </div>

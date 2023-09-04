@@ -14,6 +14,7 @@ export default {
                 state.user.username = "guest"
                 state.user.role = "unauthorized"
                 localStorage.removeItem("user")
+                localStorage.removeItem("watchlist")
                 return
             }
 

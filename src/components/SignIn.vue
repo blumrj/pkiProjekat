@@ -25,8 +25,8 @@ export default{
     data(){
         return {
             signInObj: {
-                email: "pera@gmail.com",
-                password: "sifra1234",
+                email: "",
+                password: "",
             },
             error: undefined
         }
